@@ -1,0 +1,53 @@
+version: "3.8"
+services:
+  reverse-proxy:
+    image: nginx:stable-alpine
+    volumes:
+      - ./reverse-proxy/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    ports:
+      - "80:80"
+    depends_on:
+      - frontend
+      - backend
+    networks:
+      - webnet
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    image: concert-tickets-frontend:latest
+    networks:
+      - webnet
+    restart: always
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    image: concert-tickets-backend:latest
+    environment:
+      - PORT=3000
+      - NODE_ENV=production
+    volumes:
+      - tickets-data:/app
+    networks:
+      - webnet
+    healthcheck:
+      test: ["CMD-SHELL","/bin/sh -c 'wget -qO- http://localhost:3000/events || exit 1'"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    deploy:
+      resources:
+        limits:
+          memory: 300M
+        reservations:
+          memory: 128M
+
+volumes:
+  tickets-data:
+
+networks:
+  webnet:
+    driver: bridge
