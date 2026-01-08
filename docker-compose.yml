@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    image: concert-tickets-backend:latest
+    ports:
+      - "3000:3000"
+    volumes:
+      - tickets-data:/app
+    restart: unless-stopped
+
+volumes:
+  tickets-data:
+    driver: local

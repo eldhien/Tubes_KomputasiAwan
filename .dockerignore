@@ -1,0 +1,10 @@
+**/node_modules
+**/vendor
+*.log
+*.tmp
+*.db
+tickets.db
+bin/
+.git
+.vscode
+frontend/node_modules
