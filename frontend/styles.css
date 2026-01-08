@@ -1,7 +1,0 @@
-body { font-family: Arial, sans-serif; padding: 20px; background: #f7f7f7; }
-main { max-width: 800px; margin: 0 auto; background: #fff; padding: 20px; border-radius: 8px; }
-.event { border: 1px solid #eee; padding: 12px; margin-bottom: 8px; border-radius: 6px; }
-.event h3 { margin: 0 0 6px 0; }
-button { background: #0078d4; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer; }
-button:hover { opacity: 0.9 }
-.purchase { padding: 6px 0; border-bottom: 1px dashed #eee; }
